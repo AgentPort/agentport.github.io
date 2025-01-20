@@ -101,6 +101,8 @@
   }
 
   .hero {
+      position: relative;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.02) 0%, rgba(129, 140, 248, 0.02) 100%);
       padding: 8rem 1.5rem 6rem;
       text-align: center;
       background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(129, 140, 248, 0.05) 100%);
@@ -265,6 +267,8 @@
       }
 
       .workflow-diagram {
+          position: relative;
+          z-index: 2;
           margin: 2rem 1rem;
           transform: scale(0.8);
       }
@@ -661,7 +665,78 @@
         display: block;
     }
 }
-  </style>
+.waves {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.wave-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(0);
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    animation: wave 25s linear infinite;
+}
+
+.wave:nth-child(2) {
+    bottom: 0;
+    animation: wave 15s linear reverse infinite;
+}
+
+.wave:nth-child(3) {
+    bottom: 0;
+    animation: wave 20s linear infinite;
+}
+
+.wave-parallax > use {
+    animation: wave-move 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+
+.wave:nth-child(2) .wave-parallax > use {
+    animation: wave-move 15s cubic-bezier(.55,.5,.45,.5) reverse infinite;
+}
+
+.wave:nth-child(3) .wave-parallax > use {
+    animation: wave-move 20s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+
+@keyframes wave {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-25%); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes wave-move {
+    0% { transform: translate(-90px, 0%); }
+    50% { transform: translate(85px, -2%); }
+    100% { transform: translate(-90px, 0%); }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.workflow-diagram {
+    position: relative;
+    z-index: 2;
+}
+</style>
 </head>
 <body>
   <nav class="nav">
@@ -783,6 +858,29 @@
   </nav>
 
 <section class="hero">
+  <div class="waves">
+    <div class="wave-content">
+      <svg class="wave" viewBox="0 24 150 28" preserveAspectRatio="none">
+        <defs>
+          <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+        </defs>
+        <g class="wave-parallax">
+          <use href="#wave-path" x="50" y="3" fill="rgba(79, 70, 229, 0.03)"/>
+        </g>
+      </svg>
+      <svg class="wave" viewBox="0 24 150 28" preserveAspectRatio="none">
+        <g class="wave-parallax">
+          <use href="#wave-path" x="50" y="0" fill="rgba(79, 70, 229, 0.05)"/>
+        </g>
+      </svg>
+      <svg class="wave" viewBox="0 24 150 28" preserveAspectRatio="none">
+        <g class="wave-parallax">
+          <use href="#wave-path" x="50" y="3" fill="rgba(79, 70, 229, 0.02)"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  
   <div class="hero-content">
     <svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -1020,6 +1118,32 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 2000);
     });
   }
+  document.addEventListener('DOMContentLoaded', function() {
+      const waves = document.querySelectorAll('.wave');
+      const hero = document.querySelector('.hero');
+      
+      hero.addEventListener('mousemove', (e) => {
+          const { clientX, clientY } = e;
+          const { left, top, width, height } = hero.getBoundingClientRect();
+          const x = (clientX - left) / width - 0.5;
+          const y = (clientY - top) / height - 0.5;
+          
+          waves.forEach((wave, index) => {
+              const factor = (index + 1) * 4;
+              wave.style.transform = `
+                  rotateZ(${x * factor}deg) 
+                  translate3d(-50%, ${y * factor}px, 0) 
+                  rotateZ(${-x * factor}deg)
+              `;
+          });
+      });
+      
+      hero.addEventListener('mouseleave', () => {
+          waves.forEach(wave => {
+              wave.style.transform = '';
+          });
+      });
+  });
 });
 </script>
 </body>
