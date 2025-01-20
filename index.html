@@ -4,10 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AgentPort - Universal Port for AI Agents</title>
-  <link rel="icon" type="image/svg+xml"
-        href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234F46E5"/><stop offset="100%" style="stop-color:%23818CF8"/></linearGradient><linearGradient id="b" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%236366F1"/><stop offset="100%" style="stop-color:%23A5B4FC"/></linearGradient></defs><g transform="translate(160 160)"><circle r="140" fill="none" stroke="url(%23a)" stroke-width="12"/><circle r="100" fill="none" stroke="url(%23a)" stroke-width="8"/><circle r="60" fill="url(%23a)"/><circle r="25" fill="url(%23b)"/></g></svg>'>
-  <link rel="apple-touch-icon" sizes="180x180"
-        href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234F46E5"/><stop offset="100%" style="stop-color:%23818CF8"/></linearGradient><linearGradient id="b" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%236366F1"/><stop offset="100%" style="stop-color:%23A5B4FC"/></linearGradient></defs><g transform="translate(160 160)"><circle r="140" fill="none" stroke="url(%23a)" stroke-width="12"/><circle r="100" fill="none" stroke="url(%23a)" stroke-width="8"/><circle r="60" fill="url(%23a)"/><circle r="25" fill="url(%23b)"/></g></svg>'>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
   <style>
   * {
@@ -17,43 +16,39 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
+  @keyframes fadeInUp {
+      from {
+          opacity: 0;
+          transform: translateY(20px);
+      }
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+
   @keyframes gradient {
-      0% {
-          background-position: 0% 50%;
-      }
-      50% {
-          background-position: 100% 50%;
-      }
-      100% {
-          background-position: 0% 50%;
-      }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
   }
 
   @keyframes wave {
-      0% {
-          transform: translateX(0) translateZ(0) scaleY(1);
-      }
-      50% {
-          transform: translateX(-25%) translateZ(0) scaleY(0.55);
-      }
-      100% {
-          transform: translateX(-50%) translateZ(0) scaleY(1);
-      }
+      0% { transform: translateX(0) translateZ(0) scaleY(1); }
+      50% { transform: translateX(-25%) translateZ(0) scaleY(0.55); }
+      100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
   }
 
   @keyframes pulse {
-      0% {
-          transform: scale(1);
-          opacity: 1;
-      }
-      50% {
-          transform: scale(1.1);
-          opacity: 0.8;
-      }
-      100% {
-          transform: scale(1);
-          opacity: 1;
-      }
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
   }
 
   body {
@@ -86,7 +81,7 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      animation: pulse 2s infinite;
+      /*animation: pulse 2s infinite;*/
   }
 
   .logo-text {
@@ -98,37 +93,9 @@
       background-size: 200% 200%;
       animation: gradient 3s ease infinite;
   }
-
   .nav-links {
       display: flex;
       gap: 2rem;
-  }
-
-  .nav-links a {
-      text-decoration: none;
-      color: #4F46E5;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      font-size: 0.95rem;
-      position: relative;
-  }
-
-  .nav-links a::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      bottom: -4px;
-      left: 0;
-      background: linear-gradient(135deg, #4F46E5 0%, #818CF8 100%);
-      transform: scaleX(0);
-      transform-origin: bottom right;
-      transition: transform 0.3s ease;
-  }
-
-  .nav-links a:hover::after {
-      transform: scaleX(1);
-      transform-origin: bottom left;
   }
 
   .hero {
@@ -144,21 +111,11 @@
       overflow: hidden;
   }
 
-  .hero::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 200%;
-      height: 100%;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='%234F46E510'/%3E%3C/svg%3E");
-      animation: wave 20s linear infinite;
-      z-index: 1;
-  }
-
   .hero-content {
       position: relative;
       z-index: 2;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
   }
 
   .hero-logo {
@@ -166,7 +123,7 @@
       height: 180px;
       margin-bottom: 2rem;
       filter: drop-shadow(0 0 20px rgba(79, 70, 229, 0.2));
-      animation: pulse 3s infinite;
+      animation: float 6s ease-in-out infinite;
   }
 
   .hero h1 {
@@ -179,6 +136,8 @@
       line-height: 1.2;
       background-size: 200% 200%;
       animation: gradient 3s ease infinite;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 0.3s;
   }
 
   .hero p {
@@ -186,6 +145,8 @@
       color: #4b5563;
       max-width: 600px;
       margin: 0 auto 2rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 0.6s;
   }
 
   .hero-buttons {
@@ -193,8 +154,119 @@
       gap: 1.5rem;
       justify-content: center;
       margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 0.9s;
   }
 
+  .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 0 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+  }
+
+  .feature-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(79, 70, 229, 0.1);
+      opacity: 0;
+      transform: translateY(20px);
+  }
+
+  .feature-card.animate {
+      animation: fadeInUp 0.6s ease forwards;
+  }
+
+  .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #4F46E5, #818CF8);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+  }
+
+  .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(79, 70, 229, 0.15);
+  }
+
+  .feature-card:hover::before {
+      opacity: 1;
+  }
+
+  .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      transition: transform 0.3s ease;
+  }
+
+  .feature-card:hover .feature-icon {
+      transform: scale(1.2) rotate(5deg);
+  }
+
+  .feature-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #4F46E5 0%, #818CF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+  }
+
+  .feature-description {
+      color: #4b5563;
+      line-height: 1.6;
+      font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+      .hero h1 {
+          font-size: 2.25rem;
+          padding: 0 1rem;
+      }
+
+      .hero p {
+          font-size: 1.1rem;
+          padding: 0 1rem;
+      }
+
+      .hero-buttons {
+          flex-direction: column;
+          padding: 0 1rem;
+      }
+
+      .hero-button {
+          width: 100%;
+          justify-content: center;
+      }
+
+      .feature-grid {
+          grid-template-columns: 1fr;
+          padding: 0 1rem;
+      }
+
+      .hero-logo {
+          width: 140px;
+          height: 140px;
+      }
+
+      .workflow-diagram {
+          margin: 2rem 1rem;
+          transform: scale(0.8);
+      }
+  }
   .hero-button {
       display: inline-flex;
       align-items: center;
@@ -204,26 +276,9 @@
       font-weight: 600;
       font-size: 1.125rem;
       transition: all 0.3s ease;
-      letter-spacing: -0.01em;
       text-decoration: none;
       position: relative;
       overflow: hidden;
-  }
-
-  .hero-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transform: translateX(-100%);
-      transition: 0.5s;
-  }
-
-  .hero-button:hover::before {
-      transform: translateX(100%);
   }
 
   .github-button {
@@ -251,293 +306,35 @@
       box-shadow: 0 6px 12px rgba(79, 70, 229, 0.12);
   }
 
-  .workflow-diagram {
-      margin: 4rem auto;
-      max-width: 1000px;
-      width: 100%;
-      background: white;
-      border-radius: 1.5rem;
-      border: 1px solid rgba(79, 70, 229, 0.15);
-      box-shadow: 0 8px 30px rgba(79, 70, 229, 0.08);
-      overflow: hidden;
-      transition: all 0.3s ease;
-  }
-
-  .workflow-diagram:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(79, 70, 229, 0.12);
-  }
-
-  .workflow-diagram pre {
-      margin: 0;
-      padding: 2rem;
-  }
-
   .features {
-      padding: 4rem 1.5rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      padding: 6rem 1.5rem;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.03) 0%, rgba(129, 140, 248, 0.03) 100%);
       position: relative;
-  }
-
-  .features::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 200%;
-      height: 100%;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='%234F46E505'/%3E%3C/svg%3E");
-      animation: wave 25s linear infinite;
-      z-index: -1;
-      opacity: 0.5;
+      overflow: hidden;
   }
 
   .features h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 2.5rem;
+      font-size: 2.5rem;
+      font-weight: 800;
       text-align: center;
-      color: #1a1a1a;
+      margin-bottom: 4rem;
       background: linear-gradient(135deg, #4F46E5 0%, #818CF8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-size: 200% 200%;
-      animation: gradient 3s ease infinite;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
   }
 
-  .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-  }
-
-  .feature-card {
-      padding: 1.5rem;
-      border: 1px solid rgba(79, 70, 229, 0.1);
-      border-radius: 0.75rem;
-      transition: all 0.5s ease;
+  .workflow-diagram {
+      margin: 4rem auto;
+      max-width: 1000px;
       background: white;
-      position: relative;
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 30px rgba(79, 70, 229, 0.08);
       overflow: hidden;
-  }
-
-  .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent, rgba(79, 70, 229, 0.05), transparent);
-      transform: translateX(-100%);
-      transition: 0.5s;
-  }
-
-  .feature-card:hover {
-      transform: translateY(-4px) scale(1.02);
-      border-color: rgba(79, 70, 229, 0.3);
-      box-shadow: 0 8px 24px rgba(79, 70, 229, 0.15);
-  }
-
-  .feature-card:hover::before {
-      transform: translateX(100%);
-  }
-
-  .feature-icon {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      transition: transform 0.3s ease;
-  }
-
-  .feature-card:hover .feature-icon {
-      transform: scale(1.2);
-  }
-
-  .feature-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-      color: #1a1a1a;
-      transition: color 0.3s ease;
-  }
-
-  .feature-card:hover .feature-title {
-      background: linear-gradient(135deg, #4F46E5 0%, #818CF8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-  }
-
-  .feature-description {
-      color: #4b5563;
-      font-size: 0.95rem;
-  }
-
-  @media (max-width: 768px) {
-      .nav-links {
-          display: none;
-      }
-
-      .hero h1 {
-          font-size: 2.5rem;
-      }
-
-      .hero p {
-          font-size: 1.1rem;
-      }
-
-      .hero-buttons {
-          flex-direction: column;
-          align-items: center;
-      }
-
-      .hero-logo {
-          width: 140px;
-          height: 140px;
-      }
-
-      .workflow-diagram {
-          margin: 2rem 1rem;
-          border-radius: 1rem;
-      }
-
-      .workflow-diagram pre {
-          padding: 1rem;
-          font-size: 0.8rem;
-      }
-  }
-
-  .code-section {
-      padding: 4rem 1.5rem;
-      background: #f8fafc;
-      position: relative;
-      overflow: hidden;
-  }
-
-  .code-section::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 200%;
-      height: 100%;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='%234F46E505'/%3E%3C/svg%3E");
-      animation: wave 30s linear infinite;
-      z-index: 1;
-      opacity: 0.3;
-  }
-
-  .code-container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 1rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      position: relative;
-      z-index: 2;
-      transition: all 0.3s ease;
-  }
-
-  .code-container:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 30px rgba(79, 70, 229, 0.2);
-  }
-
-  .code-header {
-      padding: 1.5rem 2rem;
-      background: #1e1e1e;
-      color: white;
-      position: relative;
-      overflow: hidden;
-  }
-
-  .code-header::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 6px;
-      height: 100%;
-      background: linear-gradient(135deg, #4F46E5 0%, #818CF8 100%);
-      animation: pulse 2s infinite;
-  }
-
-  .code-header h2 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-  }
-
-  .code-header p {
-      color: #94a3b8;
-      font-size: 0.95rem;
-  }
-
-  .code-preview {
-      position: relative;
-  }
-
-  .code-preview pre {
-      margin: 0;
-      padding: 1.5rem;
-      background: #1e1e1e;
-      color: #e2e8f0;
-      overflow-x: auto;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      font-size: 0.95rem;
-      line-height: 1.5;
-  }
-
-  .code-preview code {
-      display: block;
-  }
-
-  .code-preview .comment {
-      color: #6b7280;
-  }
-
-  .code-preview .keyword {
-      color: #ff79c6;
-  }
-
-  .code-preview .string {
-      color: #50fa7b;
-  }
-
-  .code-preview .number {
-      color: #bd93f9;
-  }
-
-  .code-preview .function {
-      color: #8be9fd;
-  }
-
-  .code-preview .module {
-      color: #f1fa8c;
-  }
-
-  .code-preview .class {
-      color: #66d9ef;
-  }
-
-  .copy-button {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      padding: 0.5rem;
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      border-radius: 0.375rem;
-      color: #94a3b8;
-      cursor: pointer;
-      transition: all 0.3s ease;
-  }
-
-  .copy-button:hover {
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      transform: scale(1.1);
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 1.2s;
   }
 
   footer {
@@ -548,210 +345,166 @@
       overflow: hidden;
   }
 
-  footer::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 200%;
-      height: 100%;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='%234F46E505'/%3E%3C/svg%3E");
-      animation: wave 35s linear infinite;
-      z-index: 1;
-      opacity: 0.3;
-  }
-
   footer p {
       color: #4b5563;
       font-size: 0.9rem;
+      animation: fadeInUp 0.6s ease forwards;
+  }
+
+  @media (max-width: 480px) {
+      .hero h1 {
+          font-size: 2rem;
+      }
+
+      .hero p {
+          font-size: 1rem;
+      }
+
+      .feature-card {
+          padding: 1.5rem;
+      }
+
+      .feature-title {
+          font-size: 1.25rem;
+      }
+
+      .feature-description {
+          font-size: 0.9rem;
+      }
+  }
+  /* 在之前的 CSS 中添加或修改 */
+  .workflow-diagram {
+      margin: 4rem auto;
+      max-width: 100%;
+      padding: 2rem;
+      background: white;
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 30px rgba(79, 70, 229, 0.08);
+      overflow-x: auto;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 1.2s;
+  }
+
+  .workflow-diagram pre {
+      display: flex;
+      justify-content: center;
+      min-width: 800px;
+  }
+
+  .quick-start {
+      padding: 6rem 1.5rem;
+      background: white;
       position: relative;
-      z-index: 2;
   }
 
-  footer a {
-      color: #4F46E5;
-      text-decoration: none;
-      transition: color 0.3s ease;
+  .quick-start h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 3rem;
+      background: linear-gradient(135deg, #4F46E5 0%, #818CF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
   }
 
-  footer a:hover {
-      color: #818CF8;
+  .code-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #1a1a1a;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: #2d2d2d;
+  }
+
+  .code-header-title {
+      color: #e5e7eb;
+      font-size: 0.875rem;
+      font-weight: 500;
+  }
+
+  .copy-button {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+      transition: all 0.2s;
+  }
+
+  .copy-button:hover {
+      color: #e5e7eb;
+      background: rgba(255, 255, 255, 0.1);
+  }
+
+  .code-content {
+      padding: 1.5rem;
+      overflow-x: auto;
+  }
+
+  .code-content pre {
+      margin: 0;
+      color: #e5e7eb;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.875rem;
+      line-height: 1.7;
   }
 
   @media (max-width: 768px) {
+      .workflow-diagram {
+          padding: 1rem;
+          margin: 2rem 0;
+      }
+
+      .workflow-diagram pre {
+          min-width: 600px;
+      }
+
       .code-container {
           margin: 0 1rem;
       }
 
-      .code-preview pre {
+      .code-content {
           padding: 1rem;
-          font-size: 0.85rem;
       }
   }
-
   .workflow-diagram {
       margin: 4rem auto;
-      max-width: 1000px;
       width: 100%;
+      padding: 2rem 1rem;
       background: white;
       border-radius: 1.5rem;
-      border: 1px solid rgba(79, 70, 229, 0.15);
       box-shadow: 0 8px 30px rgba(79, 70, 229, 0.08);
-      overflow: hidden;
-      position: relative;
-      transition: all 0.3s ease;
-  }
-
-  .workflow-diagram::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #4F46E5, #818CF8);
+      overflow-x: auto;
       opacity: 0;
-      transition: opacity 0.3s ease;
-  }
-
-  .workflow-diagram:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(79, 70, 229, 0.12);
-  }
-
-  .workflow-diagram:hover::before {
-      opacity: 1;
+      animation: fadeInUp 1s ease forwards 1.2s;
   }
 
   .workflow-diagram pre {
+      display: flex;
+      justify-content: center;
+      min-width: 800px;
       margin: 0;
-      padding: 2rem;
   }
 
-  /* Mermaid SVG specific styles */
-  .workflow-diagram .mermaid svg {
-      max-width: 100%;
-      height: auto;
-  }
+  @media (max-width: 768px) {
+      .workflow-diagram {
+          margin: 2rem auto;
+          padding: 1rem 0.5rem;
+      }
 
-  .workflow-diagram .mermaid .marker {
-      fill: #818CF8;
-  }
-
-  .workflow-diagram .mermaid .cluster rect {
-      rx: 12;
-      ry: 12;
-  }
-
-  .workflow-diagram .mermaid .cluster-label {
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-  }
-
-  .workflow-diagram .mermaid .nodeLabel {
-      font-family: 'Inter', sans-serif;
-  }
-
-  .workflow-diagram .mermaid .edgeLabel {
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      background-color: white !important;
-      padding: 4px 8px !important;
-      border-radius: 4px;
-  }
-
-  .workflow-diagram {
-      margin: 4rem auto;
-      max-width: 1000px;
-      width: 100%;
-      background: white;
-      border-radius: 1.5rem;
-      border: 1px solid rgba(79, 70, 229, 0.15);
-      box-shadow: 0 8px 30px rgba(79, 70, 229, 0.08);
-      overflow: hidden;
-      position: relative;
-      transition: all 0.3s ease;
-  }
-
-  .workflow-diagram::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #4F46E5, #818CF8);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-  }
-
-  .workflow-diagram:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(79, 70, 229, 0.12);
-  }
-
-  .workflow-diagram:hover::before {
-      opacity: 1;
-  }
-
-  .workflow-diagram pre {
-      margin: 0;
-      padding: 2rem;
-  }
-
-  /* Mermaid SVG specific styles */
-  .workflow-diagram .mermaid svg {
-      max-width: 100%;
-      height: auto;
-  }
-
-  .workflow-diagram .mermaid .marker {
-      fill: #818CF8;
-  }
-
-  .workflow-diagram .mermaid .cluster rect {
-      rx: 12;
-      ry: 12;
-      fill: #F8FAFC !important;
-      stroke: #E0E7FF !important;
-  }
-
-  .workflow-diagram .mermaid .cluster .cluster-label {
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      fill: #4F46E5 !important;
-      color: #4F46E5 !important;
-  }
-
-  .workflow-diagram .mermaid .nodeLabel {
-      font-family: 'Inter', sans-serif;
-  }
-
-  .workflow-diagram .mermaid .edgeLabel {
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      background-color: #EEF2FF !important;
-      color: #4F46E5 !important;
-      padding: 4px 8px !important;
-      border-radius: 6px;
-      font-weight: 500;
-  }
-
-  .workflow-diagram .mermaid .flowchart-link {
-      stroke: #818CF8 !important;
-      stroke-width: 2px !important;
-  }
-
-  .workflow-diagram .mermaid .label {
-      font-family: 'Inter', sans-serif !important;
-  }
-
-  /* 添加卡片阴影效果 */
-  .workflow-diagram .mermaid .node rect,
-  .workflow-diagram .mermaid .node circle,
-  .workflow-diagram .mermaid .node polygon,
-  .workflow-diagram .mermaid .node path {
-      filter: drop-shadow(0 4px 6px rgba(79, 70, 229, 0.07));
+      .workflow-diagram pre {
+          min-width: 600px;
+          transform-origin: left top;
+      }
   }
   </style>
 </head>
@@ -766,16 +519,18 @@
 
 <section class="hero">
   <div class="hero-content">
-    <svg class="hero-logo" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+    <svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#4F46E5"/>
           <stop offset="100%" style="stop-color:#818CF8"/>
         </linearGradient>
+
         <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" style="stop-color:#6366F1"/>
           <stop offset="100%" style="stop-color:#A5B4FC"/>
         </linearGradient>
+
         <filter id="glow">
           <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
           <feMerge>
@@ -783,11 +538,13 @@
             <feMergeNode in="SourceGraphic"/>
           </feMerge>
         </filter>
+
         <filter id="innerGlow">
           <feGaussianBlur stdDeviation="2" result="blur"/>
           <feComposite in="SourceGraphic" in2="blur" operator="over"/>
         </filter>
       </defs>
+
       <g transform="translate(160,160)">
         <g filter="url(#glow)">
           <path d="M-90,0 A90,90 0 1,1 90,0"
@@ -795,6 +552,7 @@
                 stroke="url(#mainGradient)"
                 stroke-width="8"
                 stroke-linecap="round"/>
+
           <path d="M90,0 A90,90 0 1,1 -90,0"
                 fill="none"
                 stroke="url(#mainGradient)"
@@ -802,15 +560,18 @@
                 stroke-linecap="round"
                 stroke-dasharray="4,12"/>
         </g>
+
         <g filter="url(#innerGlow)">
           <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
                 fill="none"
                 stroke="url(#accentGradient)"
                 stroke-width="3"/>
+
           <circle r="35"
                   fill="none"
                   stroke="url(#mainGradient)"
                   stroke-width="3"/>
+
           <g>
             <circle r="20"
                     fill="url(#mainGradient)"/>
@@ -818,6 +579,7 @@
                     fill="url(#accentGradient)"/>
           </g>
         </g>
+
         <g stroke="url(#mainGradient)" opacity="0.3">
           <path d="M-70,-70 Q-35,-35 0,0" fill="none" stroke-width="2"/>
           <path d="M70,-70 Q35,-35 0,0" fill="none" stroke-width="2"/>
@@ -825,6 +587,7 @@
           <path d="M-70,70 Q-35,35 0,0" fill="none" stroke-width="2"/>
         </g>
       </g>
+
       <g opacity="0.15">
         <circle cx="160" cy="160" r="130"
                 fill="none"
@@ -834,8 +597,7 @@
     </svg>
 
     <h1>Universal Port for AI Agents</h1>
-    <p>An open-source platform for connecting and orchestrating AI agents. Built by the community, for the
-      community.</p>
+    <p>An open-source platform for connecting and orchestrating AI agents. Built by the community, for the community.</p>
 
     <div class="hero-buttons">
       <a href="https://github.com/AgentPort" target="_blank" class="hero-button github-button">
@@ -854,194 +616,162 @@
   </div>
 
   <div class="workflow-diagram">
-  <pre class="mermaid">
-    %%{
-      init: {
-        'theme': 'base',
-        'themeVariables': {
-          'primaryColor': '#4F46E5',
-          'primaryTextColor': '#ffffff',
-          'primaryBorderColor': '#818CF8',
-          'lineColor': '#A5B4FC',
-          'secondaryColor': '#E0E7FF',
-          'tertiaryColor': '#EEF2FF',
-          'fontFamily': 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-          'fontSize': '14px',
-          'fontWeight': 500
-        },
-        'flowchart': {
-          'curve': 'basis',
-          'padding': 30,
-          'nodeSpacing': 60,
-          'rankSpacing': 100,
-          'diagramPadding': 30,
-          'htmlLabels': true
-        }
-      }
-    }%%
-    flowchart LR
-      subgraph Core["Control Core"]
-        direction TB
-        A1["<div style='padding: 8px;'><div style='font-size: 20px;'>🔍</div><div style='font-weight: 600;'>Parser</div><div style='font-size: 12px; opacity: 0.8;'>Instruction</div></div>"]
-        A2["<div style='padding: 8px;'><div style='font-size: 20px;'>⚡</div><div style='font-weight: 600;'>Chain</div><div style='font-size: 12px; opacity: 0.8;'>Operations</div></div>"]
-        A3["<div style='padding: 8px;'><div style='font-size: 20px;'>🔌</div><div style='font-weight: 600;'>Protocol</div><div style='font-size: 12px; opacity: 0.8;'>Interface</div></div>"]
-      end
+        <pre class="mermaid">
+            %%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#4F46E5', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#818CF8', 'lineColor': '#A5B4FC', 'secondaryColor': '#E0E7FF', 'tertiaryColor': '#EEF2FF'}}}%%
+            flowchart LR
+                subgraph Core["Control Core"]
+                    direction TB
+                    A1["🔍 Parser"]
+                    A2["⚡ Chain"]
+                    A3["🔌 Protocol"]
+                end
 
-      C{{"<div style='padding: 8px;'><div style='font-size: 20px;'>📡</div><div style='font-weight: 600;'>/context</div></div>"}}
+                C{"📡 /context"}
 
-      subgraph Right["Integration Layer"]
-        direction TB
-        D["<div style='padding: 8px;'><div style='font-size: 20px;'>💾</div><div style='font-weight: 600;'>Vector DB</div><div style='font-size: 12px; opacity: 0.8;'>Data Storage</div></div>"]
-        SDK["<div style='padding: 8px;'><div style='font-size: 20px;'>🛠️</div><div style='font-weight: 600;'>AgentPort SDK</div><div style='font-size: 12px; opacity: 0.8;'>Chain of Thought</div></div>"]
+                subgraph Right["Integration Layer"]
+                    direction TB
+                    D["💾 Vector DB"]
+                    SDK["🛠️ AgentPort SDK"]
 
-        subgraph Agents["Agent Network"]
-          direction TB
-          E1["<div style='padding: 8px;'><div style='font-size: 20px;'>🤖</div><div style='font-weight: 600;'>Eliza</div><div style='font-size: 12px; opacity: 0.8;'>Assistant</div></div>"]
-          E2["<div style='padding: 8px;'><div style='font-size: 20px;'>🔧</div><div style='font-weight: 600;'>Rig</div><div style='font-size: 12px; opacity: 0.8;'>Tools</div></div>"]
-          E3["<div style='padding: 8px;'><div style='font-size: 20px;'>✨</div><div style='font-weight: 600;'>Custom</div><div style='font-size: 12px; opacity: 0.8;'>Extensions</div></div>"]
-        end
-      end
+                    subgraph Agents["Agent Network"]
+                        direction TB
+                        E1["🤖 Eliza"]
+                        E2["🔧 Rig"]
+                        E3["✨ Custom"]
+                    end
+                end
 
-      Core --> |"Process"| C
-      C -->|"Query"| SDK
-      C -->|"Store"| D
-      C -->|"Execute"| E1
-      C -->|"Execute"| E2
-      C -->|"Execute"| E3
-      D <-->|"Sync"| SDK
-      SDK -->|"Control"| E1
-      SDK -->|"Control"| E2
-      SDK -->|"Control"| E3
-
-      classDef default fill:#ffffff,stroke:#E0E7FF,color:#4F46E5,stroke-width:2px
-      classDef core fill:#EEF2FF,stroke:#818CF8,color:#4F46E5,stroke-width:2px
-      classDef context fill:#4F46E5,stroke:#818CF8,color:#ffffff,stroke-width:3px
-      classDef sdk fill:#EEF2FF,stroke:#818CF8,color:#4F46E5,stroke-width:2px
-      classDef db fill:#EEF2FF,stroke:#818CF8,color:#4F46E5,stroke-width:2px
-      classDef agent1 fill:#EEF2FF,stroke:#818CF8,color:#4F46E5,stroke-width:2px
-      classDef agent2 fill:#EEF2FF,stroke:#818CF8,color:#4F46E5,stroke-width:2px
-      classDef agent3 fill:#EEF2FF,stroke:#818CF8,color:#4F46E5,stroke-width:2px
-
-      class A1,A2,A3 core
-      class C context
-      class SDK sdk
-      class D db
-      class E1 agent1
-      class E2 agent2
-      class E3 agent3
-
-      linkStyle default stroke:#818CF8,stroke-width:2px,fill:none
-  </pre>
+                Core --> |"Process"| C
+                C -->|"Query"| SDK
+                C -->|"Store"| D
+                C -->|"Execute"| E1
+                C -->|"Execute"| E2
+                C -->|"Execute"| E3
+                D <-->|"Sync"| SDK
+                SDK -->|"Control"| E1
+                SDK -->|"Control"| E2
+                SDK -->|"Control"| E3
+        </pre>
   </div>
 </section>
 
-<section class="features" id="features">
+<section class="features">
   <h2>Core Features</h2>
   <div class="feature-grid">
     <div class="feature-card">
       <div class="feature-icon">🔌</div>
       <h3 class="feature-title">Universal Connectivity</h3>
-      <p class="feature-description">Connect any AI agent with our standardized interface. Built-in support for popular
-        AI frameworks and models.</p>
+      <p class="feature-description">Connect any AI agent with our standardized interface. Built-in support for popular AI frameworks and models.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🔄</div>
       <h3 class="feature-title">Agent Orchestration</h3>
-      <p class="feature-description">Manage multiple agents and their interactions with a simple, intuitive API. Perfect
-        for complex AI workflows.</p>
+      <p class="feature-description">Manage multiple agents and their interactions with a simple, intuitive API. Perfect for complex AI workflows.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🛠️</div>
       <h3 class="feature-title">Developer First</h3>
-      <p class="feature-description">Extensive documentation, examples, and tools to help you get started quickly.
-        Active community support.</p>
+      <p class="feature-description">Extensive documentation, examples, and tools to help you get started quickly. Active community support.</p>
     </div>
   </div>
 </section>
-
-<section class="code-section">
+<section class="quick-start">
+  <h2>Quick Start</h2>
   <div class="code-container">
     <div class="code-header">
-      <h2>Quick Start</h2>
-      <p>Type-safe AI agent orchestration with TypeScript</p>
-    </div>
-    <div class="code-preview">
+      <span class="code-header-title">npm</span>
       <button class="copy-button" onclick="copyCode()">
         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
         </svg>
       </button>
-      <pre><code><span class="comment">// Install AgentPort</span>
-<span class="keyword">npm</span> install agentport
+    </div>
+    <div class="code-content">
+            <pre><code>npm install @agentport/core
+npm install @agentport/eliza  # Optional Eliza agent
+npm install @agentport/rig    # Optional Rig agent</code></pre>
+    </div>
+  </div>
 
-<span class="comment">// Import types and AgentPort class</span>
-<span class="keyword">import</span> {
-    <span class="class">AgentPort</span>,
-    <span class="keyword">type</span> <span class="type">AgentConfig</span>,
-    <span class="keyword">type</span> <span class="type">AgentResponse</span>
-} <span class="keyword">from</span> <span class="string">'agentport'</span>
+  <div class="code-container" style="margin-top: 2rem;">
+    <div class="code-header">
+      <span class="code-header-title">index.ts</span>
+      <button class="copy-button" onclick="copyCode()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="code-content">
+            <pre><code>import { AgentPort } from '@agentport/core'
+import { ElizaAgent } from '@agentport/eliza'
+import { RigAgent } from '@agentport/rig'
 
-<span class="comment">// Define agent configuration type</span>
-<span class="keyword">interface</span> <span class="type">LLMConfig</span> <span class="keyword">extends</span> <span
-                class="type">AgentConfig</span> {
-    type: <span class="string">'llm'</span>
-    model: <span class="string">'gpt-4'</span> | <span class="string">'gpt-3.5-turbo'</span>
-    config: {
-        temperature: <span class="type">number</span>
-        maxTokens?: <span class="type">number</span>
-    }
-}
+// Initialize AgentPort
+const port = new AgentPort()
 
-<span class="comment">// Initialize and connect an agent</span>
-<span class="keyword">const</span> port = <span class="keyword">new</span> <span class="class">AgentPort</span>()
-<span class="keyword">const</span> agent = <span class="keyword">await</span> port.connect&lt;<span class="type">LLMConfig</span>&gt;({
-    type: <span class="string">'llm'</span>,
-    model: <span class="string">'gpt-4'</span>,
-    config: {
-        temperature: <span class="number">0.7</span>,
-        maxTokens: <span class="number">2048</span>
-    }
+// Add built-in agents
+port.use(new ElizaAgent())
+port.use(new RigAgent())
+
+// Add your custom agent
+port.use({
+  name: 'custom',
+  async process(ctx) {
+    return 'Hello from custom agent!'
+  }
 })
 
-<span class="comment">// Define task parameters type</span>
-<span class="keyword">interface</span> <span class="type">AnalyzeTaskParams</span> {
-    task: <span class="string">'analyze_text'</span>
-    input: <span class="type">string</span>
-}
-
-<span class="comment">// Execute task with type safety</span>
-<span class="keyword">const</span> result = <span class="keyword">await</span> agent.execute&lt;<span class="type">AnalyzeTaskParams</span>, <span
-                class="type">AgentResponse</span>&gt;({
-    task: <span class="string">'analyze_text'</span>,
-    input: <span class="string">'Your text here'</span>
-})</code></pre>
+// Start the server
+port.listen(3000)</code></pre>
     </div>
   </div>
 </section>
-
 <footer>
   <p>An open source project under the MIT License. Built with ❤️ by the community.</p>
 </footer>
-
 <script>
-mermaid.initialize({
-  securityLevel: 'loose',
-  startOnLoad: true
-});
-
-function copyCode() {
-  const code = document.querySelector('.code-preview code').innerText;
-  navigator.clipboard.writeText(code).then(() => {
-    const button = document.querySelector('.copy-button');
-    button.innerHTML = '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
-    button.style.color = '#50fa7b';
-    setTimeout(() => {
-      button.innerHTML = '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>';
-      button.style.color = '#94a3b8';
-    }, 2000);
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize Mermaid
+  mermaid.initialize({
+    securityLevel: 'loose',
+    startOnLoad: true,
+    theme: 'base',
+    flowchart: {
+      useMaxWidth: true,
+      htmlLabels: true,
+      curve: 'basis'
+    }
   });
-}
+  // Animate feature cards on scroll
+  const featureCards = document.querySelectorAll('.feature-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationDelay = `${index * 0.2}s`;
+        entry.target.classList.add('animate');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  featureCards.forEach(card => observer.observe(card));
+
+  // Copy code function
+  window.copyCode = function() {
+    const code = document.querySelector('.code-preview code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      const button = document.querySelector('.copy-button');
+      button.innerHTML = '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+      button.style.color = '#50fa7b';
+      setTimeout(() => {
+        button.innerHTML = '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>';
+        button.style.color = '#94a3b8';
+      }, 2000);
+    });
+  }
+});
 </script>
 </body>
 </html>
