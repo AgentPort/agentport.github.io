@@ -4,8 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AgentPort - Universal Port for AI Agents</title>
-  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234F46E5"/><stop offset="100%" style="stop-color:%23818CF8"/></linearGradient><linearGradient id="b" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%236366F1"/><stop offset="100%" style="stop-color:%23A5B4FC"/></linearGradient></defs><g transform="translate(160 160)"><circle r="140" fill="none" stroke="url(%23a)" stroke-width="12"/><circle r="100" fill="none" stroke="url(%23a)" stroke-width="8"/><circle r="60" fill="url(%23a)"/><circle r="25" fill="url(%23b)"/></g></svg>'>
-  <link rel="apple-touch-icon" sizes="180x180" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234F46E5"/><stop offset="100%" style="stop-color:%23818CF8"/></linearGradient><linearGradient id="b" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%236366F1"/><stop offset="100%" style="stop-color:%23A5B4FC"/></linearGradient></defs><g transform="translate(160 160)"><circle r="140" fill="none" stroke="url(%23a)" stroke-width="12"/><circle r="100" fill="none" stroke="url(%23a)" stroke-width="8"/><circle r="60" fill="url(%23a)"/><circle r="25" fill="url(%23b)"/></g></svg>'>
+  <link rel="icon" type="image/svg+xml"
+        href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234F46E5"/><stop offset="100%" style="stop-color:%23818CF8"/></linearGradient><linearGradient id="b" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%236366F1"/><stop offset="100%" style="stop-color:%23A5B4FC"/></linearGradient></defs><g transform="translate(160 160)"><circle r="140" fill="none" stroke="url(%23a)" stroke-width="12"/><circle r="100" fill="none" stroke="url(%23a)" stroke-width="8"/><circle r="60" fill="url(%23a)"/><circle r="25" fill="url(%23b)"/></g></svg>'>
+  <link rel="apple-touch-icon" sizes="180x180"
+        href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234F46E5"/><stop offset="100%" style="stop-color:%23818CF8"/></linearGradient><linearGradient id="b" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%236366F1"/><stop offset="100%" style="stop-color:%23A5B4FC"/></linearGradient></defs><g transform="translate(160 160)"><circle r="140" fill="none" stroke="url(%23a)" stroke-width="12"/><circle r="100" fill="none" stroke="url(%23a)" stroke-width="8"/><circle r="60" fill="url(%23a)"/><circle r="25" fill="url(%23b)"/></g></svg>'>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
   <style>
   * {
@@ -370,6 +372,7 @@
       color: #4b5563;
       font-size: 0.95rem;
   }
+
   @media (max-width: 768px) {
       .nav-links {
           display: none;
@@ -585,6 +588,171 @@
           font-size: 0.85rem;
       }
   }
+
+  .workflow-diagram {
+      margin: 4rem auto;
+      max-width: 1000px;
+      width: 100%;
+      background: white;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(79, 70, 229, 0.15);
+      box-shadow: 0 8px 30px rgba(79, 70, 229, 0.08);
+      overflow: hidden;
+      position: relative;
+      transition: all 0.3s ease;
+  }
+
+  .workflow-diagram::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #4F46E5, #818CF8);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+  }
+
+  .workflow-diagram:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(79, 70, 229, 0.12);
+  }
+
+  .workflow-diagram:hover::before {
+      opacity: 1;
+  }
+
+  .workflow-diagram pre {
+      margin: 0;
+      padding: 2rem;
+  }
+
+  /* Mermaid SVG specific styles */
+  .workflow-diagram .mermaid svg {
+      max-width: 100%;
+      height: auto;
+  }
+
+  .workflow-diagram .mermaid .marker {
+      fill: #818CF8;
+  }
+
+  .workflow-diagram .mermaid .cluster rect {
+      rx: 12;
+      ry: 12;
+  }
+
+  .workflow-diagram .mermaid .cluster-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+  }
+
+  .workflow-diagram .mermaid .nodeLabel {
+      font-family: 'Inter', sans-serif;
+  }
+
+  .workflow-diagram .mermaid .edgeLabel {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      background-color: white !important;
+      padding: 4px 8px !important;
+      border-radius: 4px;
+  }
+
+  .workflow-diagram {
+      margin: 4rem auto;
+      max-width: 1000px;
+      width: 100%;
+      background: white;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(79, 70, 229, 0.15);
+      box-shadow: 0 8px 30px rgba(79, 70, 229, 0.08);
+      overflow: hidden;
+      position: relative;
+      transition: all 0.3s ease;
+  }
+
+  .workflow-diagram::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #4F46E5, #818CF8);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+  }
+
+  .workflow-diagram:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(79, 70, 229, 0.12);
+  }
+
+  .workflow-diagram:hover::before {
+      opacity: 1;
+  }
+
+  .workflow-diagram pre {
+      margin: 0;
+      padding: 2rem;
+  }
+
+  /* Mermaid SVG specific styles */
+  .workflow-diagram .mermaid svg {
+      max-width: 100%;
+      height: auto;
+  }
+
+  .workflow-diagram .mermaid .marker {
+      fill: #818CF8;
+  }
+
+  .workflow-diagram .mermaid .cluster rect {
+      rx: 12;
+      ry: 12;
+      fill: #F8FAFC !important;
+      stroke: #E0E7FF !important;
+  }
+
+  .workflow-diagram .mermaid .cluster .cluster-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      fill: #4F46E5 !important;
+      color: #4F46E5 !important;
+  }
+
+  .workflow-diagram .mermaid .nodeLabel {
+      font-family: 'Inter', sans-serif;
+  }
+
+  .workflow-diagram .mermaid .edgeLabel {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      background-color: #EEF2FF !important;
+      color: #4F46E5 !important;
+      padding: 4px 8px !important;
+      border-radius: 6px;
+      font-weight: 500;
+  }
+
+  .workflow-diagram .mermaid .flowchart-link {
+      stroke: #818CF8 !important;
+      stroke-width: 2px !important;
+  }
+
+  .workflow-diagram .mermaid .label {
+      font-family: 'Inter', sans-serif !important;
+  }
+
+  /* 添加卡片阴影效果 */
+  .workflow-diagram .mermaid .node rect,
+  .workflow-diagram .mermaid .node circle,
+  .workflow-diagram .mermaid .node polygon,
+  .workflow-diagram .mermaid .node path {
+      filter: drop-shadow(0 4px 6px rgba(79, 70, 229, 0.07));
+  }
   </style>
 </head>
 <body>
@@ -666,7 +834,8 @@
     </svg>
 
     <h1>Universal Port for AI Agents</h1>
-    <p>An open-source platform for connecting and orchestrating AI agents. Built by the community, for the community.</p>
+    <p>An open-source platform for connecting and orchestrating AI agents. Built by the community, for the
+      community.</p>
 
     <div class="hero-buttons">
       <a href="https://github.com/AgentPort" target="_blank" class="hero-button github-button">
@@ -685,72 +854,84 @@
   </div>
 
   <div class="workflow-diagram">
-            <pre class="mermaid">
-            %%{
-                init: {
-                    'theme': 'neutral',
-                    'flowchart': {
-                        'curve': 'monotoneX',
-                        'padding': 20,
-                        'nodeSpacing': 50,
-                        'rankSpacing': 80,
-                        'diagramPadding': 20
-                    }
-                }
-            }%%
-            graph LR
-                subgraph Core["MCP Core"]
-                    direction TB
-                    A1[AI Instruction Parser]
-                    A2[Chain Operations]
-                    A3[Protocol Interface]
-                end
+  <pre class="mermaid">
+    %%{
+      init: {
+        'theme': 'base',
+        'themeVariables': {
+          'primaryColor': '#4F46E5',
+          'primaryTextColor': '#ffffff',
+          'primaryBorderColor': '#818CF8',
+          'lineColor': '#A5B4FC',
+          'secondaryColor': '#E0E7FF',
+          'tertiaryColor': '#EEF2FF',
+          'fontFamily': 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+          'fontSize': '14px',
+          'fontWeight': 500
+        },
+        'flowchart': {
+          'curve': 'basis',
+          'padding': 30,
+          'nodeSpacing': 60,
+          'rankSpacing': 100,
+          'diagramPadding': 30,
+          'htmlLabels': true
+        }
+      }
+    }%%
+    flowchart LR
+      subgraph Core["Control Core"]
+        direction TB
+        A1["<div style='padding: 8px;'><div style='font-size: 20px;'>🔍</div><div style='font-weight: 600;'>Parser</div><div style='font-size: 12px; opacity: 0.8;'>Instruction</div></div>"]
+        A2["<div style='padding: 8px;'><div style='font-size: 20px;'>⚡</div><div style='font-weight: 600;'>Chain</div><div style='font-size: 12px; opacity: 0.8;'>Operations</div></div>"]
+        A3["<div style='padding: 8px;'><div style='font-size: 20px;'>🔌</div><div style='font-weight: 600;'>Protocol</div><div style='font-size: 12px; opacity: 0.8;'>Interface</div></div>"]
+      end
 
-                C{{"<center>/context</center>"}}
+      C{{"<div style='padding: 8px;'><div style='font-size: 20px;'>📡</div><div style='font-weight: 600;'>/context</div></div>"}}
 
-                subgraph Right[" "]
-                    direction TB
-                    D[(Vector<br/>Database)]
-                    SDK["AgentPort SDK<br/><small>(Chain of Thought)</small>"]
+      subgraph Right["Integration Layer"]
+        direction TB
+        D["<div style='padding: 8px;'><div style='font-size: 20px;'>💾</div><div style='font-weight: 600;'>Vector DB</div><div style='font-size: 12px; opacity: 0.8;'>Data Storage</div></div>"]
+        SDK["<div style='padding: 8px;'><div style='font-size: 20px;'>🛠️</div><div style='font-weight: 600;'>AgentPort SDK</div><div style='font-size: 12px; opacity: 0.8;'>Chain of Thought</div></div>"]
 
-                    subgraph Agents[" "]
-                        direction TB
-                        E1[Eliza]
-                        E2[Rig]
-                        E3[Other]
-                    end
-                end
+        subgraph Agents["Agent Network"]
+          direction TB
+          E1["<div style='padding: 8px;'><div style='font-size: 20px;'>🤖</div><div style='font-weight: 600;'>Eliza</div><div style='font-size: 12px; opacity: 0.8;'>Assistant</div></div>"]
+          E2["<div style='padding: 8px;'><div style='font-size: 20px;'>🔧</div><div style='font-weight: 600;'>Rig</div><div style='font-size: 12px; opacity: 0.8;'>Tools</div></div>"]
+          E3["<div style='padding: 8px;'><div style='font-size: 20px;'>✨</div><div style='font-weight: 600;'>Custom</div><div style='font-size: 12px; opacity: 0.8;'>Extensions</div></div>"]
+        end
+      end
 
-                Core --> C
-                C --> SDK
-                C --> D
-                C --> E1
-                C --> E2
-                C --> E3
-                D <--> SDK
-                SDK --> E1
-                SDK --> E2
-                SDK --> E3
+      Core --> |"Process"| C
+      C -->|"Query"| SDK
+      C -->|"Store"| D
+      C -->|"Execute"| E1
+      C -->|"Execute"| E2
+      C -->|"Execute"| E3
+      D <-->|"Sync"| SDK
+      SDK -->|"Control"| E1
+      SDK -->|"Control"| E2
+      SDK -->|"Control"| E3
 
-                classDef default fill:#f9fafb,stroke:#e5e7eb,color:#374151
-                classDef core fill:#e8f2ff,stroke:#a3c6ff,color:#1e40af
-                classDef context fill:#ef4444,stroke:#dc2626,color:#ffffff,stroke-width:2px
-                classDef sdk fill:#fef08a,stroke:#fde047,color:#854d0e
-                classDef db fill:#dbeafe,stroke:#93c5fd,color:#1e40af
-                classDef agent1 fill:#fb923c,stroke:#f97316,color:#ffffff
-                classDef agent2 fill:#1e293b,stroke:#0f172a,color:#ffffff
-                classDef agent3 fill:#3b82f6,stroke:#2563eb,color:#ffffff
+      classDef default fill:#ffffff,stroke:#E0E7FF,color:#4F46E5,stroke-width:2px
+      classDef core fill:#EEF2FF,stroke:#818CF8,color:#4F46E5,stroke-width:2px
+      classDef context fill:#4F46E5,stroke:#818CF8,color:#ffffff,stroke-width:3px
+      classDef sdk fill:#EEF2FF,stroke:#818CF8,color:#4F46E5,stroke-width:2px
+      classDef db fill:#EEF2FF,stroke:#818CF8,color:#4F46E5,stroke-width:2px
+      classDef agent1 fill:#EEF2FF,stroke:#818CF8,color:#4F46E5,stroke-width:2px
+      classDef agent2 fill:#EEF2FF,stroke:#818CF8,color:#4F46E5,stroke-width:2px
+      classDef agent3 fill:#EEF2FF,stroke:#818CF8,color:#4F46E5,stroke-width:2px
 
-                class A1,A2,A3 core
-                class C context
-                class SDK sdk
-                class D db
-                class E1 agent1
-                class E2 agent2
-                class E3 agent3
+      class A1,A2,A3 core
+      class C context
+      class SDK sdk
+      class D db
+      class E1 agent1
+      class E2 agent2
+      class E3 agent3
 
-                linkStyle default stroke:#94a3b8,stroke-width:2px
-            </pre>
+      linkStyle default stroke:#818CF8,stroke-width:2px,fill:none
+  </pre>
   </div>
 </section>
 
@@ -802,7 +983,8 @@
 } <span class="keyword">from</span> <span class="string">'agentport'</span>
 
 <span class="comment">// Define agent configuration type</span>
-<span class="keyword">interface</span> <span class="type">LLMConfig</span> <span class="keyword">extends</span> <span class="type">AgentConfig</span> {
+<span class="keyword">interface</span> <span class="type">LLMConfig</span> <span class="keyword">extends</span> <span
+                class="type">AgentConfig</span> {
     type: <span class="string">'llm'</span>
     model: <span class="string">'gpt-4'</span> | <span class="string">'gpt-3.5-turbo'</span>
     config: {
@@ -829,7 +1011,8 @@
 }
 
 <span class="comment">// Execute task with type safety</span>
-<span class="keyword">const</span> result = <span class="keyword">await</span> agent.execute&lt;<span class="type">AnalyzeTaskParams</span>, <span class="type">AgentResponse</span>&gt;({
+<span class="keyword">const</span> result = <span class="keyword">await</span> agent.execute&lt;<span class="type">AnalyzeTaskParams</span>, <span
+                class="type">AgentResponse</span>&gt;({
     task: <span class="string">'analyze_text'</span>,
     input: <span class="string">'Your text here'</span>
 })</code></pre>
