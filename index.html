@@ -1,1 +1,658 @@
-# agentport.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentPort - Universal Port for AI Agents</title>
+  <link rel="icon" type="image/svg+xml"
+        href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234F46E5"/><stop offset="100%" style="stop-color:%23818CF8"/></linearGradient><linearGradient id="b" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%236366F1"/><stop offset="100%" style="stop-color:%23A5B4FC"/></linearGradient></defs><g transform="translate(160 160)"><circle r="140" fill="none" stroke="url(%23a)" stroke-width="12"/><circle r="100" fill="none" stroke="url(%23a)" stroke-width="8"/><circle r="60" fill="url(%23a)"/><circle r="25" fill="url(%23b)"/></g></svg>'>
+  <link rel="apple-touch-icon" sizes="180x180"
+        href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320"><defs><linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234F46E5"/><stop offset="100%" style="stop-color:%23818CF8"/></linearGradient><linearGradient id="b" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%236366F1"/><stop offset="100%" style="stop-color:%23A5B4FC"/></linearGradient></defs><g transform="translate(160 160)"><circle r="140" fill="none" stroke="url(%23a)" stroke-width="12"/><circle r="100" fill="none" stroke="url(%23a)" stroke-width="8"/><circle r="60" fill="url(%23a)"/><circle r="25" fill="url(%23b)"/></g></svg>'>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+  <style>
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  body {
+      background: #ffffff;
+      color: #1a1a1a;
+      line-height: 1.6;
+      overflow-x: hidden;
+  }
+
+  .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1rem 1.5rem;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(79, 70, 229, 0.1);
+  }
+
+  .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+  }
+
+  .logo-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #4F46E5 0%, #818CF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+  }
+
+  .nav-links {
+      display: flex;
+      gap: 2rem;
+  }
+
+  .nav-links a {
+      text-decoration: none;
+      color: #4F46E5;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      font-size: 0.95rem;
+  }
+
+  .nav-links a:hover {
+      color: #818CF8;
+  }
+
+  .hero {
+      padding: 8rem 1.5rem 6rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(129, 140, 248, 0.05) 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .hero-logo {
+      width: 180px;
+      height: 180px;
+      margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #4F46E5 0%, #818CF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+  }
+
+  .hero p {
+      font-size: 1.25rem;
+      color: #4b5563;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+  }
+
+  .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 2.5rem;
+  }
+
+  .hero-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1.75rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 1.125rem;
+      transition: all 0.2s ease;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+  }
+
+  .github-button {
+      background: #24292e;
+      color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  .github-button:hover {
+      transform: translateY(-2px);
+      background: #2f363d;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .docs-button {
+      background: white;
+      color: #4F46E5;
+      border: 2px solid #4F46E5;
+      box-shadow: 0 4px 6px rgba(79, 70, 229, 0.1);
+  }
+
+  .docs-button:hover {
+      transform: translateY(-2px);
+      background: rgba(79, 70, 229, 0.05);
+      box-shadow: 0 6px 12px rgba(79, 70, 229, 0.12);
+  }
+
+  .workflow-diagram {
+      margin: 4rem auto;
+      max-width: 1000px;
+      width: 100%;
+      background: white;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(79, 70, 229, 0.15);
+      box-shadow: 0 8px 30px rgba(79, 70, 229, 0.08);
+      overflow: hidden;
+  }
+
+  .workflow-diagram pre {
+      margin: 0;
+      padding: 2rem;
+  }
+
+  .features {
+      padding: 4rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+  }
+
+  .features h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      color: #1a1a1a;
+  }
+
+  .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+  }
+
+  .feature-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(79, 70, 229, 0.1);
+      border-radius: 0.75rem;
+      transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+      background: rgba(79, 70, 229, 0.02);
+      border-color: rgba(79, 70, 229, 0.2);
+      transform: translateY(-2px);
+  }
+
+  .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+  }
+
+  .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #1a1a1a;
+  }
+
+  .feature-description {
+      color: #4b5563;
+      font-size: 0.95rem;
+  }
+
+  footer {
+      background: #f9fafb;
+      padding: 2rem 1.5rem;
+      text-align: center;
+  }
+
+  footer p {
+      color: #4b5563;
+      font-size: 0.9rem;
+  }
+
+  footer a {
+      color: #4F46E5;
+      text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+      .nav-links {
+          display: none;
+      }
+
+      .hero h1 {
+          font-size: 2.5rem;
+      }
+
+      .hero p {
+          font-size: 1.1rem;
+      }
+
+      .hero-buttons {
+          flex-direction: column;
+          align-items: center;
+      }
+
+      .hero-logo {
+          width: 140px;
+          height: 140px;
+      }
+
+      .workflow-diagram {
+          margin: 2rem 1rem;
+          border-radius: 1rem;
+      }
+
+      .workflow-diagram pre {
+          padding: 1rem;
+          font-size: 0.8rem;
+      }
+  }
+
+  /* 在已有的CSS中添加这些代码 */
+  .code-section {
+      padding: 4rem 1.5rem;
+      background: #f8fafc;
+  }
+
+  .code-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+  }
+
+  .code-header {
+      padding: 1.5rem 2rem;
+      background: #1e1e1e;
+      color: white;
+  }
+
+  .code-header h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+  }
+
+  .code-header p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+  }
+
+  .code-preview {
+      position: relative;
+  }
+
+  .code-preview pre {
+      margin: 0;
+      padding: 1.5rem;
+      background: #1e1e1e;
+      color: #e2e8f0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.95rem;
+      line-height: 1.5;
+  }
+
+  .code-preview code {
+      display: block;
+  }
+
+  /* 代码高亮样式 */
+  .code-preview .comment {
+      color: #6b7280;
+  }
+
+  .code-preview .keyword {
+      color: #ff79c6;
+  }
+
+  .code-preview .string {
+      color: #50fa7b;
+  }
+
+  .code-preview .number {
+      color: #bd93f9;
+  }
+
+  .code-preview .function {
+      color: #8be9fd;
+  }
+
+  .code-preview .module {
+      color: #f1fa8c;
+  }
+
+  .code-preview .class {
+      color: #66d9ef;
+  }
+
+  /* 复制按钮 */
+  .copy-button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 0.375rem;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s ease;
+  }
+
+  .copy-button:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+  }
+
+  @media (max-width: 768px) {
+      .code-container {
+          margin: 0 1rem;
+      }
+
+      .code-preview pre {
+          padding: 1rem;
+          font-size: 0.85rem;
+      }
+  }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-content">
+    <div class="logo-container">
+      <span class="logo-text">AgentPort</span>
+    </div>
+    <div class="nav-links">
+      <a href="https://github.com/AgentPort" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <svg class="hero-logo" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#4F46E5"/>
+        <stop offset="100%" style="stop-color:#818CF8"/>
+      </linearGradient>
+      <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#6366F1"/>
+        <stop offset="100%" style="stop-color:#A5B4FC"/>
+      </linearGradient>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <filter id="innerGlow">
+        <feGaussianBlur stdDeviation="2" result="blur"/>
+        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+      </filter>
+    </defs>
+    <g transform="translate(160,160)">
+      <g filter="url(#glow)">
+        <path d="M-90,0 A90,90 0 1,1 90,0"
+              fill="none"
+              stroke="url(#mainGradient)"
+              stroke-width="8"
+              stroke-linecap="round"/>
+        <path d="M90,0 A90,90 0 1,1 -90,0"
+              fill="none"
+              stroke="url(#mainGradient)"
+              stroke-width="8"
+              stroke-linecap="round"
+              stroke-dasharray="4,12"/>
+      </g>
+      <g filter="url(#innerGlow)">
+        <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+              fill="none"
+              stroke="url(#accentGradient)"
+              stroke-width="3"/>
+        <circle r="35"
+                fill="none"
+                stroke="url(#mainGradient)"
+                stroke-width="3"/>
+        <g>
+          <circle r="20"
+                  fill="url(#mainGradient)"/>
+          <circle r="8"
+                  fill="url(#accentGradient)"/>
+        </g>
+      </g>
+      <g stroke="url(#mainGradient)" opacity="0.3">
+        <path d="M-70,-70 Q-35,-35 0,0" fill="none" stroke-width="2"/>
+        <path d="M70,-70 Q35,-35 0,0" fill="none" stroke-width="2"/>
+        <path d="M70,70 Q35,35 0,0" fill="none" stroke-width="2"/>
+        <path d="M-70,70 Q-35,35 0,0" fill="none" stroke-width="2"/>
+      </g>
+    </g>
+    <g opacity="0.15">
+      <circle cx="160" cy="160" r="130"
+              fill="none"
+              stroke="url(#accentGradient)"
+              stroke-width="30"/>
+    </g>
+  </svg>
+
+  <h1>Universal Port for AI Agents</h1>
+  <p>An open-source platform for connecting and orchestrating AI agents. Built by the community, for the community.</p>
+
+  <div class="hero-buttons">
+    <a href="https://github.com/AgentPort" target="_blank" class="hero-button github-button">
+      <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+      </svg>
+      View on GitHub
+    </a>
+    <a href="https://x.com/AgentPortSol" target="_blank" class="hero-button docs-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+      Follow on X
+    </a>
+  </div>
+
+  <div class="workflow-diagram">
+            <pre class="mermaid">
+            %%{
+                init: {
+                    'theme': 'neutral',
+                    'flowchart': {
+                        'curve': 'monotoneX',
+                        'padding': 20,
+                        'nodeSpacing': 50,
+                        'rankSpacing': 80,
+                        'diagramPadding': 20
+                    }
+                }
+            }%%
+            graph LR
+                subgraph Core["MCP Core"]
+                    direction TB
+                    A1[AI Instruction Parser]
+                    A2[Chain Operations]
+                    A3[Protocol Interface]
+                end
+
+                C{{"<center>/context</center>"}}
+
+                subgraph Right[" "]
+                    direction TB
+                    D[(Vector<br/>Database)]
+                    SDK["AgentPort SDK<br/><small>(Chain of Thought)</small>"]
+
+                    subgraph Agents[" "]
+                        direction TB
+                        E1[Eliza]
+                        E2[Rig]
+                        E3[Other]
+                    end
+                end
+
+                Core --> C
+                C --> SDK
+                C --> D
+                C --> E1
+                C --> E2
+                C --> E3
+                D <--> SDK
+                SDK --> E1
+                SDK --> E2
+                SDK --> E3
+
+                classDef default fill:#f9fafb,stroke:#e5e7eb,color:#374151
+                classDef core fill:#e8f2ff,stroke:#a3c6ff,color:#1e40af
+                classDef context fill:#ef4444,stroke:#dc2626,color:#ffffff,stroke-width:2px
+                classDef sdk fill:#fef08a,stroke:#fde047,color:#854d0e
+                classDef db fill:#dbeafe,stroke:#93c5fd,color:#1e40af
+                classDef agent1 fill:#fb923c,stroke:#f97316,color:#ffffff
+                classDef agent2 fill:#1e293b,stroke:#0f172a,color:#ffffff
+                classDef agent3 fill:#3b82f6,stroke:#2563eb,color:#ffffff
+
+                class A1,A2,A3 core
+                class C context
+                class SDK sdk
+                class D db
+                class E1 agent1
+                class E2 agent2
+                class E3 agent3
+
+                linkStyle default stroke:#94a3b8,stroke-width:2px
+            </pre>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <h2>Core Features</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🔌</div>
+      <h3 class="feature-title">Universal Connectivity</h3>
+      <p class="feature-description">Connect any AI agent with our standardized interface. Built-in support for popular
+        AI frameworks and models.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔄</div>
+      <h3 class="feature-title">Agent Orchestration</h3>
+      <p class="feature-description">Manage multiple agents and their interactions with a simple, intuitive API. Perfect
+        for complex AI workflows.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛠️</div>
+      <h3 class="feature-title">Developer First</h3>
+      <p class="feature-description">Extensive documentation, examples, and tools to help you get started quickly.
+        Active community support.</p>
+    </div>
+  </div>
+</section>
+<section class="code-section">
+  <div class="code-container">
+    <div class="code-header">
+      <h2>Quick Start</h2>
+      <p>Type-safe AI agent orchestration with TypeScript</p>
+    </div>
+    <div class="code-preview">
+      <button class="copy-button" onclick="copyCode()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+        </svg>
+      </button>
+      <pre><code><span class="comment">// Install AgentPort</span>
+<span class="keyword">npm</span> install agentport
+
+<span class="comment">// Import types and AgentPort class</span>
+<span class="keyword">import</span> {
+    <span class="class">AgentPort</span>,
+    <span class="keyword">type</span> <span class="type">AgentConfig</span>,
+    <span class="keyword">type</span> <span class="type">AgentResponse</span>
+} <span class="keyword">from</span> <span class="string">'agentport'</span>
+
+<span class="comment">// Define agent configuration type</span>
+<span class="keyword">interface</span> <span class="type">LLMConfig</span> <span class="keyword">extends</span> <span
+                class="type">AgentConfig</span> {
+    type: <span class="string">'llm'</span>
+    model: <span class="string">'gpt-4'</span> | <span class="string">'gpt-3.5-turbo'</span>
+    config: {
+        temperature: <span class="type">number</span>
+        maxTokens?: <span class="type">number</span>
+    }
+}
+
+<span class="comment">// Initialize and connect an agent</span>
+<span class="keyword">const</span> port = <span class="keyword">new</span> <span class="class">AgentPort</span>()
+<span class="keyword">const</span> agent = <span class="keyword">await</span> port.connect&lt;<span class="type">LLMConfig</span>&gt;({
+    type: <span class="string">'llm'</span>,
+    model: <span class="string">'gpt-4'</span>,
+    config: {
+        temperature: <span class="number">0.7</span>,
+        maxTokens: <span class="number">2048</span>
+    }
+})
+
+<span class="comment">// Define task parameters type</span>
+<span class="keyword">interface</span> <span class="type">AnalyzeTaskParams</span> {
+    task: <span class="string">'analyze_text'</span>
+    input: <span class="type">string</span>
+}
+
+<span class="comment">// Execute task with type safety</span>
+<span class="keyword">const</span> result = <span class="keyword">await</span> agent.execute&lt;<span class="type">AnalyzeTaskParams</span>, <span
+                class="type">AgentResponse</span>&gt;({
+    task: <span class="string">'analyze_text'</span>,
+    input: <span class="string">'Your text here'</span>
+})</code></pre>
+    </div>
+  </div>
+</section>
+<footer>
+  <p>An open source project under the MIT License. Built with ❤️ by the community.</p>
+</footer>
+
+<script>
+mermaid.initialize({
+  securityLevel: 'loose',
+  startOnLoad: true
+});
+
+function copyCode() {
+  const code = document.querySelector('.code-preview code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const button = document.querySelector('.copy-button');
+    button.innerHTML = '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+    button.style.color = '#50fa7b';
+    setTimeout(() => {
+      button.innerHTML = '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>';
+      button.style.color = '#94a3b8';
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
